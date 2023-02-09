@@ -16,7 +16,7 @@ export const Home = () => {
 
   const postData = (data) => {
     return axios
-      .post("http://localhost:8080/form-data", data)
+      .post("https://eqaim.onrender.com/form-data", data)
       .then((res) => {
         // console.log(res);
         setResult(res.data);
@@ -42,7 +42,7 @@ export const Home = () => {
               <div className="first">
                 <label id="first-label">First Number:</label>
                 <input
-                  required="true"
+                  required
                   type="number"
                   name="first_number"
                   onChange={handleChange}
@@ -52,7 +52,7 @@ export const Home = () => {
               <div className="second">
                 <label id="second-label">Second Number:</label>
                 <input
-                  required="true"
+                  required
                   type="number"
                   name="second_number"
                   onChange={handleChange}
