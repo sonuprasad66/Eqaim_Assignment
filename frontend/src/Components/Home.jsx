@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 
 export const Home = () => {
-  const [inputData, setInputData] = useState({});
+  const [inputData, setInputData] = useState({
+    first_number: 0,
+    second_number: 0,
+  });
   const printResult = document.getElementById("result-box");
 
   const handleChange = (e) => {
@@ -25,7 +28,27 @@ export const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postData(inputData);
+
+    const check = /^[0-9\b]+&/;
+    let fn = Number(inputData.first_number);
+    let sn = Number(inputData.second_number);
+
+    if (fn < 0 || fn == "") {
+      alert("please enter a valid number in input box-1");
+    } else if (sn < 0 || sn == "") {
+      alert("please enter a valid number in input box-2");
+    } else if (isNaN(fn)) {
+      alert("please enter a number in input box-1");
+    } else if (isNaN(sn)) {
+      alert("please enter a number in input box-2");
+    } else if (check.test(fn)) {
+      alert("please enter a number in input box-1");
+    } else if (check.test(sn)) {
+      alert("please enter a number in input box-2");
+    } else {
+      // console.log(inputData);
+      postData(inputData);
+    }
   };
 
   return (
@@ -40,8 +63,7 @@ export const Home = () => {
               <div className="first">
                 <label id="first-label">First Number:</label>
                 <input
-                  required
-                  type="number"
+                  type="text"
                   name="first_number"
                   onChange={handleChange}
                 />
@@ -50,8 +72,7 @@ export const Home = () => {
               <div className="second">
                 <label id="second-label">Second Number:</label>
                 <input
-                  required
-                  type="number"
+                  type="text"
                   name="second_number"
                   onChange={handleChange}
                 />
