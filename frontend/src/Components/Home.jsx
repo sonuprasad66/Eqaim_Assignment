@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 export const Home = () => {
   const [inputData, setInputData] = useState({});
+  const [result, setResult] = useState({});
+  const printResult = document.getElementById("result-box");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -11,9 +14,20 @@ export const Home = () => {
     });
   };
 
+  const postData = (data) => {
+    return axios
+      .post("http://localhost:8080/form-data", data)
+      .then((res) => {
+        // console.log(res);
+        setResult(res.data);
+        printResult.innerHTML = JSON.stringify(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputData);
+    postData(inputData);
   };
 
   return (
@@ -28,6 +42,7 @@ export const Home = () => {
               <div className="first">
                 <label id="first-label">First Number:</label>
                 <input
+                  required="true"
                   type="number"
                   name="first_number"
                   onChange={handleChange}
@@ -37,6 +52,7 @@ export const Home = () => {
               <div className="second">
                 <label id="second-label">Second Number:</label>
                 <input
+                  required="true"
                   type="number"
                   name="second_number"
                   onChange={handleChange}
@@ -47,7 +63,7 @@ export const Home = () => {
             </form>
           </div>
           <div className="result-container">
-            <div className="result-box"></div>
+            <div id="result-box"></div>
           </div>
         </div>
       </div>
