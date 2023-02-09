@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const Home = () => {
   const [inputData, setInputData] = useState({});
-  const [result, setResult] = useState({});
   const printResult = document.getElementById("result-box");
 
   const handleChange = (e) => {
@@ -19,7 +18,6 @@ export const Home = () => {
       .post("https://eqaim.onrender.com/form-data", data)
       .then((res) => {
         // console.log(res);
-        setResult(res.data);
         printResult.innerHTML = JSON.stringify(res.data);
       })
       .catch((err) => console.log(err));
